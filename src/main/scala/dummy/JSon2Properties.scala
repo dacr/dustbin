@@ -16,17 +16,11 @@
 
 package dummy
 
-import org.junit.runner.RunWith
-import org.scalatest.FunSuite
-import org.scalatest.ShouldMatchers
-import org.scalatest.junit.JUnitRunner
+class JSon2Properties {
 
-@RunWith(classOf[JUnitRunner])
-class DummyTest extends FunSuite with ShouldMatchers {
-  
-  test("Simple test") {
-    Dummy.message should startWith("Hello")
-    info("Test done")
-  }
+}
+
+
+object JSon2Properties {
   
 }

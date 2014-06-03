@@ -22,10 +22,9 @@ import org.scalatest.ShouldMatchers
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class DummyTest extends FunSuite with ShouldMatchers {
+class JSon2PropertiesTest extends FunSuite with ShouldMatchers {
   
   test("Simple test") {
-    Dummy.message should startWith("Hello")
     info("Test done")
   }
   

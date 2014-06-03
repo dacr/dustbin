@@ -6,13 +6,18 @@ name := "dustbin"
 
 version := "0.0.1"
 
-scalaVersion := "2.11.0"
+scalaVersion := "2.10.4"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation" , "-feature")
 
 mainClass in assembly := Some("dummy.Dummy")
 
 jarName in assembly := "dummy.jar"
+
+libraryDependencies ++= Seq(
+  "org.reactivemongo" %% "reactivemongo" % "0.10.0"
+)
+
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.+" % "test"
 
