@@ -24,8 +24,15 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class JSon2PropertiesTest extends FunSuite with ShouldMatchers {
   
-  test("Simple test") {
-    info("Test done")
+  test("reactive mongo bson api experiments") {
+    import reactivemongo.bson._
+    val bd = BSONDocument(
+        "test" -> 123,
+        "sub" -> BSONDocument(
+            "x" -> 1,
+            "y" -> 2
+            )
+        )
   }
   
 }

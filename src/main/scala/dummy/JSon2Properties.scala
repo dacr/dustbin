@@ -16,11 +16,9 @@
 
 package dummy
 
-class JSon2Properties {
-
-}
-
 
 object JSon2Properties {
-  
+  def toProperties(bd:BSONDocument):Map[String, String] = {
+    ???
+  }
 }
