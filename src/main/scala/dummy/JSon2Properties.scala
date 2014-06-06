@@ -16,9 +16,45 @@
 
 package dummy
 
+import reactivemongo.bson._
+import scala.util.{ Try, Success }
 
 object JSon2Properties {
-  def toProperties(bd:BSONDocument):Map[String, String] = {
-    ???
+  private def convert(key:String, bv: BSONValue): Map[String, String] = {
+    val result = bv match {
+      case v: BSONDocument     => toProperties(v, key)
+      case v: BSONArray        => v.values.zipWithIndex.flatMap { case (sv, i) => convert(key + "." + i, sv) }
+      case v: BSONBoolean      => Map(key -> v.value.toString)
+      case v: BSONDouble       => Map(key -> v.value.toString)
+      case v: BSONInteger      => Map(key -> v.value.toString)
+      case v: BSONLong         => Map(key -> v.value.toString)
+      case v: BSONString       => Map(key -> v.value)
+      case v: BSONDateTime     => Map(key -> v.value.toString)
+      case v: BSONTimestamp    => Map(key -> v.value.toString)
+      case v: BSONSymbol       => Map(key -> v.value.toString)
+      case v: BSONBinary       => Map() // TODO : NotYetImplemented, so ignored
+      case v: BSONDBPointer    => Map() // TODO : NotYetImplemented, so ignored
+      case v: BSONJavaScript   => Map() // TODO : NotYetImplemented, so ignored
+      case v: BSONJavaScriptWS => Map() // TODO : NotYetImplemented, so ignored
+      case v: BSONObjectID     => Map() // TODO : NotYetImplemented, so ignored
+      case v: BSONRegex        => Map() // TODO : NotYetImplemented, so ignored
+      case v => Map() // TODO : temporary to avoid any other unsupported types
+      //        case v:BSONMaxKey =>       key -> ???
+      //        case v:BSONMinKey =>       key -> ???
+      //        case v:BSONNull =>         key -> ???
+      //        case v:BSONUndefined =>    key -> ???
+    }
+    result.toMap
   }
+  
+  def toProperties(bd: BSONDocument, base: String = ""): Map[String, String] = {
+    val result = bd.stream.collect { case Success(x) => x }.flatMap {
+      case (curkey, value) =>
+        val key = if (base.size==0) curkey else base+"."+curkey
+        convert(key, value)
+    }
+    result.toMap
+  }
+  
 }
+
