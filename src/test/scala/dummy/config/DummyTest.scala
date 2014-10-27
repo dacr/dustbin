@@ -14,38 +14,27 @@
  * limitations under the License.
  */
 
-package dummy
-/*
+package dummy.config
+
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.ShouldMatchers
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class JSon2PropertiesTest extends FunSuite with ShouldMatchers {
+class DummyTest extends FunSuite with ShouldMatchers {
 
-  test("reactive mongo bson api experiments") {
-    import reactivemongo.bson._
-    val bd = BSONDocument(
-      "test" -> 123,
-      "sub" -> BSONDocument(
-        "x" -> 1,
-        "y" -> 2
-      ),
-      "arr" -> BSONArray(
-          "10",
-          "20"
-          )
-    )
+  test("Simple test") {
+    
+    import dummy.config.dsl._
 
-    val m = JSon2Properties.toProperties(bd)
-    m should have size (5)
-    m should contain("test" -> "123")
-    m should contain("sub.x" -> "1")
-    m should contain("sub.y" -> "2")
-    m should contain("arr.0" -> "10")
-    m should contain("arr.1" -> "20")
+    val ssh=SSH("default", 22, "anonymous")
+    
+    val s1 = Server("hostA", "192.168.2.10").services(ssh)
+    val s2 = Server("hostB", "192.168.2.11").services(ssh)
+    val s3 = Server("hostC", "192.168.2.12").services(ssh)
+
+    Project("zorglub").withServers(s1,s2,s3)
   }
 
 }
-*/

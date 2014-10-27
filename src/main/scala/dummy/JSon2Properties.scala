@@ -16,6 +16,7 @@
 
 package dummy
 
+/*
 import reactivemongo.bson._
 import scala.util.{ Try, Success }
 
@@ -58,3 +59,4 @@ object JSon2Properties {
   
 }
 
+*/
