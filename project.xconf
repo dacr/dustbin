@@ -1,8 +1,0 @@
-    val ssh=SSH("default", 22, "anonymous")
-    
-    val s1 = Server("hostA", "192.168.2.10").services(ssh)
-    val s2 = Server("hostB", "192.168.2.11").services(ssh)
-    val s3 = Server("hostC", "192.168.2.12").services(ssh)
-
-    val project = Project("zorglub").withServers(s1,s2,s3)
-

@@ -20,21 +20,27 @@ import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.ShouldMatchers
 import org.scalatest.junit.JUnitRunner
+import dummy.config._
 
 @RunWith(classOf[JUnitRunner])
 class DummyTest extends FunSuite with ShouldMatchers {
 
   test("Simple test") {
-    
-    import dummy.config.dsl._
 
-    val ssh=SSH("default", 22, "anonymous")
-    
-    val s1 = Server("hostA", "192.168.2.10").services(ssh)
-    val s2 = Server("hostB", "192.168.2.11").services(ssh)
-    val s3 = Server("hostC", "192.168.2.12").services(ssh)
+    import dummy.config._
 
-    Project("zorglub").withServers(s1,s2,s3)
+    
+    new Config {
+      name = "self test"
+      release = "1.0"
+      
+      SSH("default", 22, "anonymous")
+      HTTP("status", 80)
+
+      server("localhost", "127.0.0.1")
+    }
+
+    
   }
 
 }
