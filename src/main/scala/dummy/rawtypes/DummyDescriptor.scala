@@ -9,22 +9,23 @@ class DummyDescriptor extends BuildStepDescriptor {
   
   
   
-  /*
+  
   override def isApplicable(aClass: Class[_ <: AbstractProject[_,_]]): Boolean = true
-  */
+  
   //[error] /Users/dcr/Dev/dustbin/src/main/scala/dummy/rawtypes/DummyDescriptor.scala:9: method isApplicable overrides nothing.
   //[error] Note: the super classes of class DummyDescriptor contain the following, non final members named isApplicable:
   //[error] private[package rawtypes] def isApplicable(jobType: Class[_ <: dummy.rawtypes.AbstractProject]): Boolean
   //[error]   override def isApplicable(aClass: Class[_ <: AbstractProject[_,_]]): Boolean = true
 
 
-  
+  /*
     import scala.language.existentials
     type Clazz = Class[_ <: AbstractProject[P, R]] forSome {
       type P <: AbstractProject[P,R]
       type R <: AbstractBuild[P,R]
     }
     override def isApplicable(aClass : Clazz):Boolean = true
+    */
   //[error] /Users/dcr/Dev/dustbin/src/main/scala/dummy/rawtypes/DummyDescriptor.scala:3: class DummyDescriptor needs to be abstract, since method isApplicable in class BuildStepDescriptor of type (jobType: Class[_ <: dummy.rawtypes.AbstractProject])Boolean is not defined
   //[error] (Note that Class[_ <: dummy.rawtypes.AbstractProject] does not match DummyDescriptor.this.Clazz: their type parameters differ)
   //[error] class DummyDescriptor extends BuildStepDescriptor {
@@ -34,4 +35,20 @@ class DummyDescriptor extends BuildStepDescriptor {
   //[error] private[package rawtypes] def isApplicable(jobType: Class[_ <: dummy.rawtypes.AbstractProject]): Boolean
   //[error]     override def isApplicable(aClass : Clazz):Boolean = true    
 
+  
+  
+  /*  
+  override def isApplicable[P <:AbstractProject[P,R], R<: AbstractBuild[P,R]]
+                   (aClass : Class[_ <: AbstractProject[P, R]]):Boolean = true
+  */
+  
+
+  /*
+    import scala.language.existentials
+    type Clazz = Class[_ <: AbstractProject[_ <:AbstractProject[P,R], _ <:AbstractBuild[P,R]]] forSome {
+      type P
+      type R
+    }
+    override def isApplicable(aClass : Clazz):Boolean = true
+  */
 }
